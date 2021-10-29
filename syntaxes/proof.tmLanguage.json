@@ -1,0 +1,45 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ebop",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#functions"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [{
+				"name": "keyword.control.proof",
+				"match": "\\b(Expression|Index)\\b"
+			},
+			{
+				"match": "\\%(.*)",
+           		"name": "comment"}
+					]
+		},
+		"functions": {
+			"patterns": [{
+				"name": "meta.definition.function.proof entity.name.function.proof",
+				"match": "[_$[:alpha:]][_$[:alnum:]]*"
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.proof",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.proof",
+					"match": "\\\\."
+				}
+			]
+		}
+	},
+	"scopeName": "source.proof"
+}

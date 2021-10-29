@@ -1,0 +1,25 @@
+{
+    "name": "proof",
+    "displayName": "ebop",
+    "description": "",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.61.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "proof",
+            "aliases": ["ebop", "proof"],
+            "extensions": [".proof"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "proof",
+            "scopeName": "source.proof",
+            "path": "./syntaxes/proof.tmLanguage.json"
+        }]
+    }
+}
