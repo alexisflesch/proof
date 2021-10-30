@@ -26,7 +26,15 @@
 		"functions": {
 			"patterns": [{
 				"name": "meta.definition.function.proof entity.name.function.proof",
-				"match": "[_$[:alpha:]][_$[:alnum:]]*"
+				"match": "[a-zA-Z0-9]+\\(.+\\)"
+			}]
+		},
+		"function-call": {
+			"patterns": [{
+				"name": "meta.definition.function.proof entity.name.function.proof",
+				"comment": "Regular function call of the type \"name(args)\" (borrowed to python grammar)",
+				"begin": "(?x)\n  \\b(?=\n    ([[:alpha:]_]\\w*) \\s* (\\()\n  )\n",
+				"end": "(\\))"
 			}]
 		},
 		"strings": {
