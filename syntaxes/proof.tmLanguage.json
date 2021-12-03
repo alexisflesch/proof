@@ -6,47 +6,60 @@
 			"include": "#keywords"
 		},
 		{
-			"include": "#functions"
+			"include": "#comments"
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#ocaml"
+		},
+		{
+			"include": "#functions"
 		}
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.control.proof",
+				"name": "support.type.proof",
 				"match": "\\b(Expression|Index)\\b"
-			},
-			{
-				"match": "\\%(.*)",
-           		"name": "comment"}
-					]
-		},
-		"functions": {
-			"patterns": [{
-				"name": "meta.definition.function.proof entity.name.function.proof",
-				"match": "[a-zA-Z0-9]+\\(.+\\)"
 			}]
 		},
-		"function-call": {
+		"comments": {
 			"patterns": [{
-				"name": "meta.definition.function.proof entity.name.function.proof",
-				"comment": "Regular function call of the type \"name(args)\" (borrowed to python grammar)",
-				"begin": "(?x)\n  \\b(?=\n    ([[:alpha:]_]\\w*) \\s* (\\()\n  )\n",
-				"end": "(\\))"
+				"name": "comment",
+				"match": "\\%(.*)"
 			}]
 		},
-		"strings": {
-			"name": "string.quoted.double.proof",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.proof",
-					"match": "\\\\."
-				}
-			]
+		"strings":{
+			"patterns": [{
+				"name": "string.quoted.double",
+				"begin": "\"",
+				"end": "\""}]
+		},
+		"numbers":{
+			"patterns": [{
+				"name": "constant.numeric",
+				"match": "\\b(0|[1-9][0-9]*)\\b"
+			}]
+		},
+		"functions":{
+			"patterns": [{
+					"name": "support.function",
+					"match": "\\b(\\w+\\.)+\\w+\\b"
+				}]},
+		"ocaml": {
+			"patterns": [{
+				"name": "meta.embedded.block.ocaml",
+				"begin": "<\\\\OCaml>",
+				"end": "</OCaml>",
+				"patterns":[{
+					"include": "source.ocaml"
+				}]
+			}]
 		}
 	},
 	"scopeName": "source.proof"
