@@ -18,7 +18,7 @@
 			"include": "#ocaml"
 		},
 		{
-			"include": "#functions"
+			"include": "#function-call"
 		}
 	],
 	"repository": {
@@ -30,32 +30,72 @@
 		},
 		"comments": {
 			"patterns": [{
-				"name": "comment",
+				"name": "comment.ebop",
 				"match": "\\%(.*)"
 			}]
 		},
 		"strings":{
 			"patterns": [{
-				"name": "string.quoted.double",
+				"name": "string.quoted.double.ebop",
 				"begin": "\"",
 				"end": "\""}]
 		},
 		"numbers":{
 			"patterns": [{
-				"name": "constant.numeric",
+				"name": "constant.numeric.ebop",
 				"match": "\\b(0|[1-9][0-9]*)\\b"
 			}]
 		},
-		"functions":{
+		"function-call":{
+			"name": "meta.function-call.ebop",
+			"comment": "Regular function call of the type \"name(args)\"",
+			"begin": "(?x)\n  \\b(?=\n    ([[:alpha:]_]\\w*) \\s* (\\()\n  )\n",
+			"end": "(\\))",
 			"patterns": [{
-					"name": "support.function",
-					"match": "\\b(\\w+\\.)+\\w+\\b"
-				}]},
+							"include": "#function-arguments"
+						},
+						{
+							"include": "#function-name"
+						}
+						]
+		},
+		"function-name": {
+			"patterns": [
+				{
+					"comment": "récupéré dans le fichier python",
+					"name": "entity.name.function.ebop",
+					"match": "(?x)\n  \\b ([[:alpha:]_]\\w*) \\b\n"
+				}
+			]
+		},
+		"function-arguments": {
+			"comment" : "récupéré dans le fichier python vscode",
+			"begin": "(\\()",
+			"end": "(?=\\))(?!\\)\\s*\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.arguments.begin.ebop"
+				}
+			},
+			"contentName": "variable.parameter.ebop",
+			"patterns": [
+				{
+					"name": "entity.name.namespace.ebop",
+					"match": "(,)"
+				}
+			]
+		},
 		"ocaml": {
 			"patterns": [{
 				"name": "meta.embedded.block.ocaml",
 				"begin": "<\\\\OCaml>",
 				"end": "</OCaml>",
+				"beginCaptures": {
+					"0": { "name": "storage.type.struct.ebop" }
+				  },
+				"endCaptures": {
+					"0": { "name": "storage.type.struct.ebop" }
+				  },
 				"patterns":[{
 					"include": "source.ocaml"
 				}]
