@@ -15,17 +15,38 @@
 			"include": "#numbers"
 		},
 		{
-			"include": "#ocaml"
+			"include": "#builtin-types"
+		},
+		{
+			"include": "#keywords-ebop"
+		},
+		{
+			"include": "#keywords-citadle"
 		},
 		{
 			"include": "#function-call"
+		},
+		{
+			"include": "#ocaml"
 		}
 	],
 	"repository": {
-		"keywords": {
+		"builtin-types": {
 			"patterns": [{
 				"name": "support.type.proof",
-				"match": "\\b(Expression|Index)\\b"
+				"match": "\\b(Expression|Index|Strategy|Extension|Function|Variable|Region|Condition)\\b"
+			}]
+		},
+		"keywords-ebop": {
+			"patterns": [{
+				"name": "keyword.proof",
+				"match": "\\b(Foo|Bar)\\b"
+			}]
+		},
+		"keywords-citadle": {
+			"patterns": [{
+				"name": "keyword.proof",
+				"match": "\\b(Foo2|Bar2)\\b"
 			}]
 		},
 		"comments": {
@@ -38,7 +59,8 @@
 			"patterns": [{
 				"name": "string.quoted.double.ebop",
 				"begin": "\"",
-				"end": "\""}]
+				"end": "\""}
+			]
 		},
 		"numbers":{
 			"patterns": [{
@@ -51,6 +73,11 @@
 			"comment": "Regular function call of the type \"name(args)\"",
 			"begin": "(?x)\n  \\b(?=\n    ([[:alpha:]_]\\w*) \\s* (\\()\n  )\n",
 			"end": "(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.arguments.end.ebop"
+				}
+			},
 			"patterns": [{
 							"include": "#function-arguments"
 						},
@@ -62,7 +89,7 @@
 		"function-name": {
 			"patterns": [
 				{
-					"comment": "récupéré dans le fichier python",
+					"comment": "récupéré dans le fichier ebop",
 					"name": "entity.name.function.ebop",
 					"match": "(?x)\n  \\b ([[:alpha:]_]\\w*) \\b\n"
 				}
@@ -77,11 +104,36 @@
 					"name": "punctuation.definition.arguments.begin.ebop"
 				}
 			},
-			"contentName": "variable.parameter.ebop",
+			"contentName": "punctuation.separator.arguments.ebop",
 			"patterns": [
 				{
-					"name": "entity.name.namespace.ebop",
+					"include": "#builtin-types"
+				},
+				{
+					"include": "#function-call"
+				},
+				{
+					"include": "#keywords-ebop"
+				},
+				{
+					"include": "#keywords-citadle"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#numbers"
+				},
+				{
+					"include": "#comments"
+				},
+				{
+					"name": "meta.separator.ebop",
 					"match": "(,)"
+				},
+				{
+					"match": "([a-zA-Z0-9]|'|_)+",
+					"name": "variable.parameter.ebop"
 				}
 			]
 		},
@@ -91,10 +143,10 @@
 				"begin": "<\\\\OCaml>",
 				"end": "</OCaml>",
 				"beginCaptures": {
-					"0": { "name": "storage.type.struct.ebop" }
+					"0": { "name": "keyword.control.import.ebop" }
 				  },
 				"endCaptures": {
-					"0": { "name": "storage.type.struct.ebop" }
+					"0": { "name": "keyword.control.import" }
 				  },
 				"patterns":[{
 					"include": "source.ocaml"
